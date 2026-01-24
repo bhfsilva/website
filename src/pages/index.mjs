@@ -100,20 +100,26 @@ export default {
                 </div>
                 <p>Desenvolvedor back-end.</p>
                 <span id="links-container">
-                    <a target="_blank" href="mailto:bhfs.contato@gmail.com">
-                        <i class="bi bi-envelope-fill"></i>
-                        bhfs.contato@gmail.com
-                    </a>
-                    |
-                    <a target="_blank" href="https://linkedin.com/in/bhfsilva">
-                        <i class="bi bi-linkedin"></i>
-                        Linkedin - Bruno Henrique
-                    </a>
-                    |
-                    <a target="_blank" href="https://github.com/bhfsilva">
-                        <i class="bi bi-github"></i>
-                        Github - bhfsilva
-                    </a>
+                    <span>
+                        <a target="_blank" href="mailto:bhfs.contato@gmail.com">
+                            <i class="bi bi-envelope-fill"></i>
+                            bhfs.contato@gmail.com
+                        </a>
+                        |
+                    </span>
+                    <span>
+                        <a target="_blank" href="https://linkedin.com/in/bhfsilva">
+                            <i class="bi bi-linkedin"></i>
+                            Linkedin - Bruno Henrique
+                        </a>
+                        |
+                    </span>
+                    <span>
+                        <a target="_blank" href="https://github.com/bhfsilva">
+                            <i class="bi bi-github"></i>
+                            Github - bhfsilva
+                        </a>
+                    </span>
                 </span>
                 <div>
                     <a href="#/">

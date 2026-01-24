@@ -4,12 +4,18 @@
     --body-background-color: #1E1E1E;
     --link-color: #A587EE;
     --text-color: #DADADA;
-    --font-size: 1.1rem;
+    --font-size: 1.2rem;
 }
 
-@media only screen and (max-width: 1024px) {
+@media (max-width: 1024px) {
     :root {
         --font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 420px) {
+    :root {
+        --font-size: 1rem;
     }
 }
 
@@ -39,7 +45,11 @@
     animation: wave 1.3s infinite;
 }
 
-#links-container a {
+#greetings-container h1 {
+    line-height: calc(var(--font-size) * 2.5);
+}
+
+#links-container span {
     white-space: nowrap;
 }
 
