@@ -122,7 +122,7 @@ export default {
                     </span>
                 </span>
                 <div>
-                    <a href="public/Bruno_Henrique.pdf">
+                    <a href="public/Bruno_Henrique.pdf" download>
                         <i class="bi bi-download"></i>
                         CV
                     </a>
