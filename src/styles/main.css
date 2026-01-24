@@ -1,0 +1,134 @@
+:root {
+    --code-background-color: rgb(85, 85, 85, 0.25);
+    --heading-border-color: #8A5CF5;
+    --body-background-color: #1E1E1E;
+    --link-color: #A587EE;
+    --text-color: #DADADA;
+    --font-size: 1.1rem;
+}
+
+@media only screen and (max-width: 1024px) {
+    :root {
+        --font-size: 1.4rem;
+    }
+}
+
+@keyframes wave {
+    50% { transform:rotate(30deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(360deg); }
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+#greetings-container {
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    display: flex;
+    gap: 15px;
+}
+
+#greetings-container img {
+    height: calc(var(--font-size) * 2.3);
+    animation: wave 1.3s infinite;
+}
+
+#links-container a {
+    white-space: nowrap;
+}
+
+/* hide multiline line number */
+.katex .tag {
+    display: none;
+}
+
+.note-navbar {
+    justify-content: space-between;
+    display: flex;
+}
+
+.loading-icon {
+    animation: spin 1s infinite;
+    display: inline-block;
+    font-size: 35px;
+    color: #828282;
+}
+
+body {
+    background-color: var(--body-background-color);
+    line-height: calc(var(--font-size) * 2);
+    font-family: "Helvetica", sans-serif;
+    font-size: var(--font-size);
+    color: var(--text-color);
+    padding: 35px;
+}
+
+ul {
+    margin-left: 15px;
+}
+
+ol {
+    margin-left: 20px;
+}
+
+h2 {
+    border-left: var(--heading-border-color) 5px solid;
+    padding-left: 10px;
+}
+
+hr {
+    border: 1.5px solid #444;
+}
+
+a {
+    color: var(--link-color);
+}
+
+blockquote {
+    border-left: var(--heading-border-color) 5px solid;
+    padding-left: 20px;
+}
+
+blockquote[data-type] {
+    --color: 100, 100, 100;
+    padding: 10px 20px 20px 20px;
+    border-color: rgba(var(--color), 0.25);
+    background-color: rgba(var(--color), 0.1);
+}
+
+blockquote[data-type=info] {
+    --icon: 'info-circle';
+    --color: 2, 122, 255;
+}
+
+blockquote[data-type=example] {
+    --icon: 'list';
+    --color: 168, 130, 255;
+}
+
+code:not(pre code) {
+    background-color: var(--code-background-color);
+    padding: 2px 5px;
+}
+
+pre {
+    background-color: var(--code-background-color);
+    line-height: calc(var(--font-size) * 1.5);
+    white-space: pre;
+    overflow: scroll;
+    padding: 15px;
+}
+
+h1, h2, h3, h4, h5, h6, blockquote, hr, pre {
+    margin: 20px 0px;
+}
+
+blockquote[data-type], code:not(pre code), pre {
+    border-radius: 4px;
+}
