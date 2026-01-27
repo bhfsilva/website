@@ -10,37 +10,30 @@ function renderNotes() {
         { title: "Livros", prefix: "/notes/books" }
     ];
 
-    const container = document.getElementById("notes-container");
+    const toElement = (section) => {
+        const byPrefix = (note) => (note.path.startsWith(section.prefix))
 
-    const toElement = (route) => (`
-        <li>
-            <a data-route href="#${route.path}">${route.name}</a>
-        </li>
-    `);
+        const toLink = (note) => (`
+            <li>
+                <a data-route href="#${note.path}">${note.name}</a>
+            </li>
+        `);
 
-    const byPathPrefix = (route, section) => (route.path.startsWith(section.prefix));
+        const links = notes.filter(byPrefix).map(toLink).join("");
+        return `
+            <ul>
+                <li>${section.title}: 
+                    <ul>${links}</ul>
+                </li>
+            </ul>
+        `;
+    };
 
-    const render = () => {
-        for (const section of sections) {
-            const elements = notes
-                .filter((route) => byPathPrefix(route, section))
-                .map(toElement)
-                .join("");
-
-            if (!elements) return;
-
-            container.innerHTML += `
-                <ul>
-                    <li>${section.title}: 
-                        <ul>${elements}</ul>
-                    </li>
-                </ul>
-            `;
-        }
-    }
-
-    container.innerHTML = `<h2>Anotações</h2>`;
-    render();
+    const elements = sections.map(toElement).join("");
+    document.getElementById("notes-container").innerHTML = `
+        <h2>Anotações</h2>
+        ${elements}
+    `;
 }
 
 function renderRepos() {
@@ -105,7 +98,7 @@ export default {
                     <h1>Me chamo Bruno Henrique!</h1>
                     <img src="public/images/waving.png"/>
                 </div>
-                <p>Desenvolvedor back-end.</p>
+                <p>Desenvolvedor Back-end.</p>
                 <span id="links-container">
                     <span>
                         <a target="_blank" href="mailto:bhfs.contato@gmail.com">

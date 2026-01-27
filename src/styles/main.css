@@ -128,17 +128,17 @@ blockquote[data-type=example] {
     --color: 168, 130, 255;
 }
 
-code:not(pre code) {
-    background-color: var(--code-background-color);
-    padding: 2px 5px;
-}
-
 pre {
     background-color: var(--code-background-color);
     line-height: calc(var(--font-size) * 1.5);
     white-space: pre;
     overflow: scroll;
     padding: 15px;
+}
+
+code:not(pre code) {
+    background-color: var(--code-background-color);
+    padding: 2px 5px;
 }
 
 h1, h2, h3, h4, h5, h6, blockquote, hr, pre {
