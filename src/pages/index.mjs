@@ -1,4 +1,4 @@
-let repos;
+const cache = {};
 
 function renderNotes() {
     const notes = [{
@@ -66,7 +66,7 @@ function renderRepos() {
     };
 
     const render = () => {
-        const elements = repos.map(toDTO).map(toElement).join("");
+        const elements = cache.repos.map(toDTO).map(toElement).join("");
         container.innerHTML = `
             <h2>Repositórios</h2>
             <ul>${elements}</ul>
@@ -83,7 +83,7 @@ function renderRepos() {
         return response.json();
     }
 
-    if (repos) {
+    if (cache.repos) {
         render();
         return;
     }
@@ -91,7 +91,7 @@ function renderRepos() {
     fetch("https://api.github.com/users/bhfsilva/repos?per_page=5&sort=created")
         .then(check)
         .then(data => {
-            repos = data;
+            cache.repos = data;
             render();
         })
         .catch(() => container.remove());
