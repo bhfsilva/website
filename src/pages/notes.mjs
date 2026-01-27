@@ -17,16 +17,24 @@ function getPathBySource(source) {
     return internalPaths.find((path) => (notesContentSource[path] === source));
 }
 
+function goToNotFound() {
+    location.replace("#/404");
+}
+
 function focusById(id) {
+    const scrollTop = () => window.scrollTo({ top: 0 });
+
     id = decodeURI(id?.replace("#", ""));
     if (!id) {
-        window.scrollTo({ top: 0 });
+        scrollTop();
         return;
     }
 
     const element = document.getElementById(id);
-    if (!element)
+    if (!element) {
+        scrollTop();
         return;
+    }
 
     element.scrollIntoView({ block: "start" });
     element.focus({ preventScroll: true });
@@ -34,7 +42,10 @@ function focusById(id) {
 
 function renderMarkdownPage(url) {
     const currentPath = url.internal.path;
-    const contentURL = `${contentRoot}/${notesContentSource[currentPath]}`;
+    const source = notesContentSource[currentPath];
+
+    if (!source)
+        goToNotFound();
 
     const cachePageContent = cache[currentPath];
     if (cachePageContent) {
@@ -46,14 +57,47 @@ function renderMarkdownPage(url) {
         const frontmatter = /^-{3}.*?-{3}/s;
         const markdownBlockId = /\s\^(.+-ref)$/gm;
 
-        const toDirectiveBlockId = (_, id) => (`{#${id}}`);
+        const directiveBlockId = (_, id) => (`:{#${id}}`);
 
         return markdown
             .replace(frontmatter, "")
-            .replace(markdownBlockId, toDirectiveBlockId);
+            .replace(markdownBlockId, directiveBlockId);
     }
 
     const toHTML = (markdown) => {
+        const resolveQuoteType = (blockquote) => {
+            const firstChild = blockquote.firstElementChild;
+            const text = firstChild.textContent;
+
+            const quoteTypeRegex = /\[!(.+)\]/g;
+
+            const type = quoteTypeRegex.exec(text)?.[1];
+            if (!type)
+                return;
+
+            let content = text.replace(quoteTypeRegex, "").trim();
+            if (!content)
+                content = type.toUpperCase();
+
+            blockquote.setAttribute("data-type", type);
+
+            const css = window.getComputedStyle(blockquote);
+            const color = css.getPropertyValue("--color");
+
+            firstChild.style.color = `rgb(${color})`;
+            firstChild.style.fontWeight = "bold";   
+
+            const icon = css.getPropertyValue("--icon");
+            if (!icon) {
+                firstChild.textContent = content;
+                return;
+            }
+
+            firstChild.innerHTML = `
+                <i class="bi bi-${icon.replaceAll("'", "")}"></i> ${content}
+            `;
+        }
+
         const resolveLink = (link) => {
             const isExternalLink = (link.origin != url.origin);
             if (isExternalLink) {
@@ -65,66 +109,33 @@ function renderMarkdownPage(url) {
             if (isFootnoteLink)
                 link.textContent = `[${link.textContent}]`;
 
-            let href = `${url.internal.origin}#${url.internal.path}`;
+            const getHref = (link) => {
+                const origin = url.internal.origin;
+                const root = url.pathname;
 
-            const linkSource = link.pathname.replace(url.pathname, "");
-            const linkInternalPath = getPathBySource(linkSource);
-            if (linkInternalPath)
-                href = `${url.internal.origin}#${linkInternalPath}`;
+                const source = link.pathname.replace(root, "");
+                const path = getPathBySource(source);
+                if (path)
+                    return `${origin}#${path}`;
 
-            const getCustomHeadingAnchor = (link) => {
-                const invalidHeaderChars = /[.()^]/g;
+                return `${origin}#${url.internal.path}`;
+            }
+
+            const getHeadingAnchor = (link) => {
+                const invalidChars = /[.()^]/g;
                 return decodeURI(link.hash)
                     .toLowerCase()
                     .replaceAll(" ", "-")
-                    .replace(invalidHeaderChars, "");
+                    .replace(invalidChars, "");
             }
 
-            const hash = getCustomHeadingAnchor(link);
-            link.hash = "";
-
-            if (hash)
-                href += hash;
-
-            link.href = href;
+            link.href = (getHref(link) + getHeadingAnchor(link));
             return link;
         }
 
-        const resolveType = (blockquote) => {
-            const firstChild = blockquote.firstElementChild;
-            const text = firstChild.textContent;
-
-            const quoteTypeRegex = /\[!(.+)\]/g;
-            const type = quoteTypeRegex.exec(text)?.[1];
-
-            let content = text.replace(quoteTypeRegex, "").trim();
-
-            if (!type)
-                return;
-
-            if (!content)
-                content = type.toUpperCase();
-
-            blockquote.setAttribute("data-type", type);
-
-            const color = window.getComputedStyle(blockquote).getPropertyValue("--color");
-            firstChild.style.color = `rgb(${color})`;
-            firstChild.style.fontWeight = "bold";
-
-            const icon = window.getComputedStyle(blockquote).getPropertyValue("--icon");
-            if (!icon) {
-                firstChild.textContent = content;
-                return;
-            }
-
-            firstChild.innerHTML = `
-                <i class="bi bi-${icon.replaceAll("'", "")}"></i> ${content}
-            `;
-        }
-
         const html = HTMLParser.parseFromString(markdownParser.parse(markdown), "text/html");
+        html.querySelectorAll("blockquote").forEach(resolveQuoteType);
         html.querySelectorAll("a").forEach(resolveLink);
-        html.querySelectorAll("blockquote").forEach(resolveType);
 
         return html;
     }
@@ -133,12 +144,10 @@ function renderMarkdownPage(url) {
         const currentIndex = internalPaths.indexOf(currentPath);
 
         const previousPath = (currentIndex === 0)
-            ? undefined
-            : internalPaths.at(currentIndex - 1);
+            ? undefined : internalPaths.at(currentIndex - 1);
 
         const nextPath = (currentIndex + 1) === (internalPaths.length - 1)
-            ? undefined
-            : internalPaths.at(currentIndex + 1);
+            ? undefined : internalPaths.at(currentIndex + 1);
 
         const toLink = (path, label) => {
             if (!path)
@@ -180,10 +189,11 @@ function renderMarkdownPage(url) {
         cache[currentPath] = pageContent;
     }
 
+    const contentURL = `${contentRoot}/${source}`;
     fetch(contentURL)
         .then(check)
         .then(render)
-        .catch(() => location.replace("#/404"));
+        .catch(() => goToNotFound());
 }
 
 export default {
