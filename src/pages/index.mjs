@@ -48,15 +48,19 @@ function renderRepos() {
 
     const toDTO = (repo) => ({
         name: repo["name"],
+        isFork: repo["fork"],
         url: repo["html_url"],
         description: repo["description"]
     });
 
     const toElement = (repo) => {
+        const forkIcon = (repo.isFork ? "<i class='bi bi-diagram-2 fork-icon'></i>" : "");
         const description = (repo.description ? `- ${repo.description}` : "");
         return `
             <li>
-                <a target="_blank" href="${repo.url}">${repo.name}</a> ${description}
+                <a target="_blank" href="${repo.url}">${repo.name}</a>
+                ${forkIcon}
+                ${description}
             </li>
         `;
     };
@@ -66,6 +70,9 @@ function renderRepos() {
         container.innerHTML = `
             <h2>Repositórios</h2>
             <ul>${elements}</ul>
+            <a target="_blank" href="https://github.com/bhfsilva?tab=repositories">
+                Ver mais...
+            </a>
         `;
     }
 
@@ -81,7 +88,7 @@ function renderRepos() {
         return;
     }
 
-    fetch("https://api.github.com/users/bhfsilva/repos?per_page=3&sort=created")
+    fetch("https://api.github.com/users/bhfsilva/repos?per_page=5&sort=created")
         .then(check)
         .then(data => {
             repos = data;
