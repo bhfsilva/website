@@ -3,4 +3,3 @@ import { registerComponents } from "./components/index.mjs";
 
 initRouter();
 registerComponents();
-

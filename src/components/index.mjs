@@ -1,7 +1,9 @@
+import { LoadingSpinner } from "./loading-spinner/index.mjs";
 import { ThemeSwitcher } from "./theme-switcher/index.mjs";
 
 const registry = {
-    [ThemeSwitcher.ID]: ThemeSwitcher
+    [ThemeSwitcher.ID]: ThemeSwitcher,
+    [LoadingSpinner.ID]: LoadingSpinner
 };
 
 function bind([id, component]) {

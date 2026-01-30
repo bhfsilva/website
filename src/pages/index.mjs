@@ -130,10 +130,10 @@ export default {
                 </div>
             </section>
             <section id="repos-container">
-                <i class="bi bi-arrow-repeat loading-icon"></i>
+                <loading-spinner></loading-spinner>
             </section>
             <section id="notes-container">
-                <i class="bi bi-arrow-repeat loading-icon"></i>
+                <loading-spinner></loading-spinner>
             </section>
             <!--
             <pre style="line-height: 23px">

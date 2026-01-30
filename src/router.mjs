@@ -58,7 +58,7 @@ function getPageByPath(path) {
 
 function render(page) {
     document.title = "bhfsilva" + getLocation().internal.path;
-    document.body.innerHTML = `<i class="bi bi-arrow-repeat loading-icon"></i>`;
+    document.body.innerHTML = `<loading-spinner></loading-spinner>`;
 
     const source = `./pages/${page}.mjs`;
     import(source)
