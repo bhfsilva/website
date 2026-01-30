@@ -7,25 +7,21 @@ export class ThemeSwitcher extends BaseComponent {
 
     static ID = "theme-switcher";
 
-    get styles() {
-        return `
-            button {
-                font-size: calc(var(--font-size) + 10px);
-                color: var(--text-color);
-                border-radius: 90px;
-                background: none;
-                padding: 3px 5px;
-            }
-        `;
-    }
+    styles =  (`
+        button {
+            font-size: calc(var(--font-size) + 10px);
+            color: var(--text-color);
+            border-radius: 90px;
+            background: none;
+            padding: 3px 5px;
+        }
+    `);
 
-    get html() {
-        return `
-            <button>
-                <i class="bi bi-sun"></i>
-            </button>
-        `;
-    }
+    html = (`
+        <button>
+            <i class="bi bi-sun"></i>
+        </button>
+    `);
 
     connectedCallback() {
         super.connectedCallback();

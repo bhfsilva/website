@@ -4,13 +4,8 @@ export class BaseComponent extends HTMLElement {
         this._shadow = this.attachShadow({ mode: "open" });
     }
 
-    get styles() {
-        return "";
-    }
-
-    get html() {
-        return "";
-    }
+    styles = "";
+    html = "";
 
     #element;
 
@@ -21,15 +16,15 @@ export class BaseComponent extends HTMLElement {
         this._shadow.appendChild(link);
     }
 
-    #setStyles(styles) {
+    #setStyles() {
         const style = document.createElement("style");
-        style.textContent = styles;
+        style.textContent = this.styles;
         this._shadow.appendChild(style);
     }
 
-    #setHtml(html) {
+    #setHtml() {
         const template = document.createElement("template");
-        template.innerHTML = html.trim();
+        template.innerHTML = this.html.trim();
         const element = template.content.firstElementChild;
         this.#element = this._shadow.appendChild(element);
     }
@@ -51,15 +46,15 @@ export class BaseComponent extends HTMLElement {
 
     select(selector) {
         const element = this._shadow.querySelector(selector);
-        if (element)
-            return element;
+        if (!element)
+            return;
 
-        return undefined;
+        return element;
     }
 
     connectedCallback() {
-        this.#setStyles(this.styles);
+        this.#setHtml();
+        this.#setStyles();
         this.#loadDefaultStyles();
-        this.#setHtml(this.html);
     }
 }

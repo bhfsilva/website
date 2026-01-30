@@ -7,27 +7,23 @@ export class LoadingSpinner extends BaseComponent {
 
     static ID = "loading-spinner";
 
-    get styles() {
-        return `
-            @keyframes spin {
-                0% { transform: rotate(-360deg); }
-            }
+    styles = (`
+        @keyframes spin {
+            0% { transform: rotate(-360deg); }
+        }
 
-            i {
-                animation: spin 1s infinite;
-                display: inline-block;
-                margin-top: 20px;
-                font-size: 35px;
-                color: #828282;
-            }
-        `;
-    }
+        i {
+            animation: spin 1s infinite;
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 35px;
+            color: #828282;
+        }
+    `);
 
-    get html() {
-        return `
-            <i class="bi bi-arrow-repeat"></i>
-        `;
-    }
+    html = (`
+        <i class="bi bi-arrow-repeat"></i>
+    `);
 
     connectedCallback() {
         super.connectedCallback();

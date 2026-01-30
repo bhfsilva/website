@@ -78,7 +78,7 @@ function navigate() {
     render(page);
 }
 
-export default function() {
+export default function initRouter() {
     window.addEventListener("hashchange", () => navigate());
     navigate();
 }

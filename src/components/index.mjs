@@ -10,6 +10,6 @@ function bind([id, component]) {
     window.customElements.define(id, component);
 }
 
-export function registerComponents() {
+export default function registerComponents() {
     Object.entries(registry).forEach(bind);
 }
