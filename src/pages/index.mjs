@@ -15,7 +15,7 @@ function renderNotes() {
 
         const toLink = (note) => (`
             <li>
-                <a data-route href="#${note.path}">${note.name}</a>
+                <a href="#${note.path}">${note.name}</a>
             </li>
         `);
 

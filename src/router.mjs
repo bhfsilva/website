@@ -4,6 +4,10 @@ const routes = {
     "/notes/**": "notes"
 }
 
+export function goToNotFound() {
+    location.replace("#/404");
+}
+
 if (location.pathname.includes("/index.html") || location.hash === "")
     location.assign("#/");
 
@@ -59,7 +63,7 @@ function render(page) {
     const source = `./pages/${page}.mjs`;
     import(source)
         .then((module) => module.default.render())
-        .catch(() => location.assign("#/404"));
+        .catch(() => goToNotFound());
 }
 
 function navigate() {
@@ -67,21 +71,14 @@ function navigate() {
     const page = getPageByPath(path);
 
     if (!page) {
-        location.assign("#/404");
+        goToNotFound();
         return;
     }
 
     render(page);
 }
 
-function addClickHandler(htmlElement) {
-    htmlElement.addEventListener("click", (event) => (
-        location.hash = event.target.hash
-    ));
-}
-
 export default function() {
     window.addEventListener("hashchange", () => navigate());
-    document.querySelectorAll("a[data-route]").forEach(addClickHandler);
     navigate();
 }

@@ -1,4 +1,4 @@
-import { getLocation } from "../router.mjs";
+import { getLocation, goToNotFound } from "../router.mjs";
 import notesContentSource from "../../data/notes-source.mjs";
 
 const HTMLParser = new DOMParser();
@@ -15,10 +15,6 @@ let cache = {};
 
 function getPathBySource(source) {
     return internalPaths.find((path) => (notesContentSource[path] === source));
-}
-
-function goToNotFound() {
-    location.replace("#/404");
 }
 
 function focusById(id) {
