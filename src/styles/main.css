@@ -76,13 +76,30 @@
     color: #828282;
 }
 
+.footnotes ol {
+    font-size: calc(var(--font-size) - 3px);
+}
+
 body {
     background-color: var(--body-background-color);
     line-height: calc(var(--font-size) * 2);
     font-family: "Helvetica", sans-serif;
     font-size: var(--font-size);
     color: var(--text-color);
+    max-width: 1000px;
     padding: 35px;
+    margin: auto;
+}
+
+body[data-theme=dark] {
+    --body-background-color: #1E1E1E;
+    --text-color: #DADADA;
+}
+
+body[data-theme=light] {
+    --body-background-color: #DADADA;
+    --text-color: #1E1E1E;
+    --link-color: #64B;
 }
 
 ul {
@@ -104,6 +121,10 @@ hr {
 
 a {
     color: var(--link-color);
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 blockquote {

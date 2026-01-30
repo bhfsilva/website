@@ -177,6 +177,7 @@ function renderMarkdownPage(url) {
         const html = toHTML(markdown);
 
         const pageContent = `
+            <theme-switcher></theme-switcher>
             ${renderNavBar()}
             ${html.body.innerHTML}
             ${renderNavBar()}

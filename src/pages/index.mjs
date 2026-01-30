@@ -94,6 +94,7 @@ export default {
     render() {
         document.body.innerHTML = `
             <section>
+                <theme-switcher></theme-switcher>
                 <div id="greetings-container">
                     <h1>Me chamo Bruno Henrique!</h1>
                     <img src="public/images/waving.png"/>
