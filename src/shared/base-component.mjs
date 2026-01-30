@@ -1,4 +1,4 @@
-import { createLinkElement } from "../../utils/html.mjs";
+import { createLinkElement } from "../utils/html.mjs";
 
 export class BaseComponent extends HTMLElement {
     constructor() {
