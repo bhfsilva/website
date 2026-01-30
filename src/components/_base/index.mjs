@@ -1,3 +1,5 @@
+import { createLinkElement } from "../../utils/html.mjs";
+
 export class BaseComponent extends HTMLElement {
     constructor() {
         super();
@@ -10,10 +12,10 @@ export class BaseComponent extends HTMLElement {
     #element;
 
     #loadDefaultStyles() {
-        const link = document.createElement("link");
-        link.href = document.head.querySelector("#default-style").href;
-        link.rel = "stylesheet";
-        this._shadow.appendChild(link);
+        const source = document.head.querySelector("#default-style").href;
+        const link = createLinkElement(source);
+        if (link)
+            this._shadow.appendChild(link);
     }
 
     #setStyles() {
@@ -34,14 +36,10 @@ export class BaseComponent extends HTMLElement {
     }
 
     includeIcons() {
-        const source = document.head.querySelector("#bootstrap-icons")?.href;
-        if (!source)
-            return;
-
-        const link = document.createElement("link");
-        link.href = source;
-        link.rel = "stylesheet";
-        this._shadow.appendChild(link);
+        const source = document.head.querySelector("#icons").href;
+        const link = createLinkElement(source);
+        if (link)
+            this._shadow.appendChild(link);
     }
 
     select(selector) {
