@@ -1,5 +1,5 @@
 const routes = {
-    "/": "index",
+    "/": "root",
     "/404": "not-found",
     "/notes/**": "notes"
 }
