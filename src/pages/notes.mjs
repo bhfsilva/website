@@ -1,4 +1,4 @@
-import { getLocation, goToNotFound } from "../router.mjs";
+import { getLocation, goToNotFound } from "../services/router.mjs";
 import notesContentSource from "../../data/notes-source.mjs";
 
 const HTMLParser = new DOMParser();
