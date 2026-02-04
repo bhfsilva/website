@@ -19,14 +19,21 @@
     }
 }
 
-@keyframes wave {
-    50% { transform:rotate(30deg); }
-}
-
 * {
     padding: 0;
     margin: 0;
     border: 0;
+}
+
+@keyframes wave {
+    50% { transform:rotate(30deg); }
+}
+
+#control-buttons-container {
+    margin-bottom: 20px;
+    align-items: center;
+    display: flex;
+    gap: 30px;
 }
 
 #greetings-container {
@@ -49,6 +56,12 @@
     white-space: nowrap;
 }
 
+.fork-icon {
+    transform: rotate(180deg);
+    display: inline-block;
+    color: #828282;
+}
+
 /* hide multiline line number */
 .katex .tag {
     display: none;
@@ -57,12 +70,6 @@
 .note-navbar {
     justify-content: space-between;
     display: flex;
-}
-
-.fork-icon {
-    transform: rotate(180deg);
-    display: inline-block;
-    color: #828282;
 }
 
 .footnotes ol {
@@ -149,6 +156,11 @@ pre {
 code:not(pre code) {
     background-color: var(--code-background-color);
     padding: 2px 5px;
+}
+
+h2 sup {
+    font-size: calc(var(--font-size) - 4px);
+    text-wrap: nowrap;
 }
 
 h1, h2, h3, h4, h5, h6, blockquote, hr, pre {

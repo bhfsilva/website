@@ -9,7 +9,7 @@ export class BaseComponent extends HTMLElement {
     styles = "";
     html = "";
 
-    #element;
+    element = undefined;
 
     #loadDefaultStyles() {
         const source = document.head.querySelector("#default-style").href;
@@ -28,11 +28,7 @@ export class BaseComponent extends HTMLElement {
         const template = document.createElement("template");
         template.innerHTML = this.html.trim();
         const element = template.content.firstElementChild;
-        this.#element = this._shadow.appendChild(element);
-    }
-
-    getHTMLElement() {
-        return this.#element;
+        this.element = this._shadow.appendChild(element);
     }
 
     includeIcons() {
@@ -48,6 +44,14 @@ export class BaseComponent extends HTMLElement {
             return;
 
         return element;
+    }
+
+    selectAll(selector) {
+        const elements = this._shadow.querySelectorAll(selector);
+        if (!elements)
+            return;
+
+        return Array.from(elements);
     }
 
     connectedCallback() {

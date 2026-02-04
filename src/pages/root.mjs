@@ -1,40 +1,6 @@
+import locale from "../services/i18n.mjs";
+
 const cache = {};
-
-function renderNotes() {
-    const notes = [{
-        path: "/notes/books/sicp",
-        name: "SICP - Structure and Interpretation of Computer Programs 2nd Edition"
-    }];
-
-    const sections = [
-        { title: "Livros", prefix: "/notes/books" }
-    ];
-
-    const toElement = (section) => {
-        const byPrefix = (note) => (note.path.startsWith(section.prefix))
-
-        const toLink = (note) => (`
-            <li>
-                <a href="#${note.path}">${note.name}</a>
-            </li>
-        `);
-
-        const links = notes.filter(byPrefix).map(toLink).join("");
-        return `
-            <ul>
-                <li>${section.title}: 
-                    <ul>${links}</ul>
-                </li>
-            </ul>
-        `;
-    };
-
-    const elements = sections.map(toElement).join("");
-    document.getElementById("notes-container").innerHTML = `
-        <h2>Anotações</h2>
-        ${elements}
-    `;
-}
 
 function renderRepos() {
     const container = document.getElementById("repos-container");
@@ -61,10 +27,10 @@ function renderRepos() {
     const render = () => {
         const elements = cache.repos.map(toDTO).map(toElement).join("");
         container.innerHTML = `
-            <h2>Repositórios</h2>
+            <h2>${locale.get("repos-title")}</h2>
             <ul>${elements}</ul>
             <a target="_blank" href="https://github.com/bhfsilva?tab=repositories">
-                Ver mais...
+                ${locale.get("see-more")}
             </a>
         `;
     }
@@ -90,16 +56,58 @@ function renderRepos() {
         .catch(() => container.remove());
 }
 
+function renderNotes() {
+    const notes = [{
+        path: "/notes/books/sicp",
+        name: "SICP - Structure and Interpretation of Computer Programs 2nd Edition"
+    }];
+
+    const sections = [
+        { title: locale.get("books-title"), prefix: "/notes/books" }
+    ];
+
+    const toElement = (section) => {
+        const byPrefix = (note) => (note.path.startsWith(section.prefix))
+
+        const toLink = (note) => (`
+            <li>
+                <a href="#${note.path}">${note.name}</a>
+            </li>
+        `);
+
+        const links = notes.filter(byPrefix).map(toLink).join("");
+        return `
+            <ul>
+                <li>${section.title}:
+                    <ul>${links}</ul>
+                </li>
+            </ul>
+        `;
+    };
+
+    const elements = sections.map(toElement).join("");
+    document.getElementById("notes-container").innerHTML = `
+        <h2>
+            ${locale.get("notes-title")}
+            <sup>${locale.get("notes-lang-hint")} <i class="fi fi-br"></i></sup>
+        </h2>
+        ${elements}
+    `;
+}
+
 export default {
     render() {
         document.body.innerHTML = `
             <section>
-                <theme-switcher></theme-switcher>
+                <div id="control-buttons-container">
+                    <theme-switcher></theme-switcher>
+                    <language-select></language-select>
+                </div>
                 <div id="greetings-container">
-                    <h1>Me chamo Bruno Henrique!</h1>
+                    <h1>${locale.get("greetings")}</h1>
                     <img src="public/images/waving.png"/>
                 </div>
-                <p>Desenvolvedor Back-end.</p>
+                <p>${locale.get("role")}</p>
                 <span id="links-container">
                     <span>
                         <a target="_blank" href="mailto:bhfs.contato@gmail.com">
