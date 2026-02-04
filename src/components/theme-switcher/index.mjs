@@ -19,24 +19,29 @@ export class ThemeSwitcher extends BaseComponent {
 
     html = (`
         <button>
-            <i class="bi bi-sun"></i>
+            <i></i>
         </button>
     `);
+
+    #isDark() {
+        return (document.body.dataset.theme === "dark");
+    }
+
+    #renderIcon() {
+        this.select("i").className = (this.#isDark()) ? "bi bi-sun" : "bi bi-moon"
+    }
 
     connectedCallback() {
         super.connectedCallback();
 
         this.includeIcons();
-        const element = this.getHTMLElement();
+        this.#renderIcon();
 
         const switchTheme = () => {
-            const icon = element.firstElementChild;
-            const isDark = (document.body.dataset.theme === "dark");
-
-            document.body.dataset.theme = isDark ? "light" : "dark";
-            icon.className = isDark ? "bi bi-moon" : "bi bi-sun";
+            document.body.dataset.theme = this.#isDark() ? "light" : "dark";
+            this.#renderIcon();
         }
 
-        element.addEventListener("click", switchTheme);
+        this.element.addEventListener("click", switchTheme);
     }
 }
