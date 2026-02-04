@@ -1,4 +1,4 @@
-import initRouter from "./router.mjs";
+import initRouter from "./services/router.mjs";
 import registerComponents from "./components/index.mjs";
 
 initRouter();

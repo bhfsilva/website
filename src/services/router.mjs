@@ -60,10 +60,13 @@ function render(page) {
     document.title = "bhfsilva" + getLocation().internal.path;
     document.body.innerHTML = `<loading-spinner></loading-spinner>`;
 
-    const source = `./pages/${page}.mjs`;
+    const source = `../pages/${page}.mjs`;
     import(source)
         .then((module) => module.default.render())
-        .catch(() => goToNotFound());
+        .catch((error) => {
+            console.error(error);
+            goToNotFound();
+        });
 }
 
 function navigate() {
@@ -79,6 +82,10 @@ function navigate() {
 }
 
 export default function initRouter() {
-    window.addEventListener("hashchange", () => navigate());
+    const events = ["hashchange", "languagechange"];
+
+    const bind = (event) => window.addEventListener(event, navigate);
+    events.forEach(bind)
+
     navigate();
 }
