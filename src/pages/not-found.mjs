@@ -1,7 +1,9 @@
 export default {
     render() {
         document.body.innerHTML = `
-            <a href="#/">[home]</a>           
+            <theme-switcher></theme-switcher>
+            <br>
+            <a href="#/">[home]</a>    
             <pre>$ tuxsay '404: Not Found'
   ----------------
 |  404: Not Found  |
