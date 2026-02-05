@@ -1,5 +1,3 @@
-import { createLinkElement } from "../utils/html.mjs";
-
 export class BaseComponent extends HTMLElement {
     constructor() {
         super();
@@ -12,10 +10,9 @@ export class BaseComponent extends HTMLElement {
     element = undefined;
 
     #loadDefaultStyles() {
-        const source = document.head.querySelector("#default-style").href;
-        const link = createLinkElement(source);
+        const link = document.head.querySelector("#default-style");
         if (link)
-            this._shadow.appendChild(link);
+            this._shadow.appendChild(link.cloneNode(true));
     }
 
     #setStyles() {
@@ -32,10 +29,9 @@ export class BaseComponent extends HTMLElement {
     }
 
     includeIcons() {
-        const source = document.head.querySelector("#icons").href;
-        const link = createLinkElement(source);
+        const link = document.head.querySelector("#icons");
         if (link)
-            this._shadow.appendChild(link);
+            this._shadow.appendChild(link.cloneNode(true));
     }
 
     select(selector) {

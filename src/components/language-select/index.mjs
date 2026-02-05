@@ -1,5 +1,4 @@
 import { BaseComponent } from "../../shared/base-component.mjs";
-import { createLinkElement } from "../../utils/html.mjs";
 
 export class LanguageSelect extends BaseComponent {
     constructor() {
@@ -69,10 +68,9 @@ export class LanguageSelect extends BaseComponent {
     ];
 
     #includeFlagIcons() {
-        const source = document.head.querySelector("#flag-icons").href;
-        const link = createLinkElement(source);
+        const link = document.head.querySelector("#flag-icons");
         if (link)
-            this._shadow.appendChild(link);
+            this._shadow.appendChild(link.cloneNode(true));
     }
 
     #getOptionsElements() {
