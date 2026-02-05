@@ -73,7 +73,7 @@
     display: flex;
 }
 
-.note-navbar i {
+.link-icon {
     border-bottom: var(--link-color) 1px solid;
     font-size: calc(var(--font-size) + 5px);
 }

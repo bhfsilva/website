@@ -151,7 +151,7 @@ function renderMarkdownPage(url) {
 
             return `
                 <a href="#${path}">
-                    <i class="bi bi-${icon}"></i>
+                    <i class="bi bi-${icon} link-icon"></i>
                 </a>
             `;
         }
@@ -159,7 +159,7 @@ function renderMarkdownPage(url) {
         return `
             <nav class="note-navbar">
                 ${toLink(previousPath, "arrow-left")}
-                <a href="#/"><i class="bi bi-house-door"></i></a>
+                <a href="#/"><i class="bi bi-house-door link-icon"></i></a>
                 ${toLink(nextPath, "arrow-right")}
             </nav>
         `;
