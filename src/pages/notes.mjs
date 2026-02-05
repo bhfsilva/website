@@ -145,18 +145,22 @@ function renderMarkdownPage(url) {
         const nextPath = (currentIndex + 1) === (internalPaths.length - 1)
             ? undefined : internalPaths.at(currentIndex + 1);
 
-        const toLink = (path, label) => {
+        const toLink = (path, icon) => {
             if (!path)
                 return "<span></span>";
 
-            return `<a href="#${path}">${label}</a>`;
+            return `
+                <a href="#${path}">
+                    <i class="bi bi-${icon}"></i>
+                </a>
+            `;
         }
 
         return `
             <nav class="note-navbar">
-                ${toLink(previousPath, "<< prev")}
-                <a href="#/">[home]</a>
-                ${toLink(nextPath, "next >>")}
+                ${toLink(previousPath, "arrow-left")}
+                <a href="#/"><i class="bi bi-house-door"></i></a>
+                ${toLink(nextPath, "arrow-right")}
             </nav>
         `;
     }
