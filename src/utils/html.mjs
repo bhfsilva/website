@@ -7,3 +7,8 @@ export function createLinkElement(source) {
     link.href = source
     return link;
 }
+
+//TODO
+// - [ ] add more elements utils?
+// - [ ] add data/properties
+// - [ ] add pages oop?
