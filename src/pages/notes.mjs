@@ -1,5 +1,5 @@
 import { getLocation, goToNotFound } from "../services/router.mjs";
-import notesContentSource from "../../data/notes-source.mjs";
+import notesContentSource from "../data/notes-source.mjs";
 
 const HTMLParser = new DOMParser();
 const markdownParser = new marked.Marked()

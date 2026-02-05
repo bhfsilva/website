@@ -1,4 +1,4 @@
-import i18nProperties from "../../data/i18n-properties.mjs";
+import i18nProperties from "../data/i18n-properties.mjs";
 
 const locale = {
     get: function(key) {
