@@ -1,5 +1,5 @@
 const roots = {
-    books: { "/notes/books": "dev/livros" }
+    books: { "/books": "dev/livros" }
 };
 
 function build(domainPaths) {
