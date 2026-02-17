@@ -1,4 +1,4 @@
-const i18nProperties = {
+const properties = {
     "pt-BR": {
         "greetings": "Me chamo Bruno Henrique!",
         "role": "Desenvolvedor Back-end.",
@@ -19,4 +19,4 @@ const i18nProperties = {
     }
 }
 
-export default i18nProperties;
+export default properties;

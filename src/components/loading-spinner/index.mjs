@@ -1,4 +1,4 @@
-import { BaseComponent } from "../../shared/base-component.mjs";
+import BaseComponent from "../base-component/index.mjs";
 
 export class LoadingSpinner extends BaseComponent {
     constructor() {
@@ -27,6 +27,5 @@ export class LoadingSpinner extends BaseComponent {
 
     connectedCallback() {
         super.connectedCallback();
-        this.includeIcons();
     }
 }

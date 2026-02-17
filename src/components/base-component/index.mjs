@@ -1,4 +1,6 @@
-export class BaseComponent extends HTMLElement {
+import { createLinkElement } from "../../utils/document.mjs";
+
+export default class BaseComponent extends HTMLElement {
     constructor() {
         super();
         this._shadow = this.attachShadow({ mode: "open" });
@@ -10,9 +12,10 @@ export class BaseComponent extends HTMLElement {
     element = undefined;
 
     #loadDefaultStyles() {
-        const link = document.head.querySelector("#default-style");
+        const properties = { href: "../../src/global.css" };
+        const link = createLinkElement(properties);
         if (link)
-            this._shadow.appendChild(link.cloneNode(true));
+            this._shadow.appendChild(link);
     }
 
     #setStyles() {
@@ -26,12 +29,6 @@ export class BaseComponent extends HTMLElement {
         template.innerHTML = this.html.trim();
         const element = template.content.firstElementChild;
         this.element = this._shadow.appendChild(element);
-    }
-
-    includeIcons() {
-        const link = document.head.querySelector("#icons");
-        if (link)
-            this._shadow.appendChild(link.cloneNode(true));
     }
 
     select(selector) {

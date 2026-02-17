@@ -1,4 +1,7 @@
-import { BaseComponent } from "../../shared/base-component.mjs";
+import changeLocale from "../../services/i18n/index.mjs";
+import BaseComponent from "../base-component/index.mjs";
+import { createLinkElement } from "../../utils/document.mjs";
+import storage from "../../services/storage/index.mjs";
 
 export class LanguageSelect extends BaseComponent {
     constructor() {
@@ -68,21 +71,21 @@ export class LanguageSelect extends BaseComponent {
     ];
 
     #includeFlagIcons() {
-        const link = document.head.querySelector("#flag-icons");
+        const properties = { href: "https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css" };
+        const link = createLinkElement(properties)
         if (link)
             this._shadow.appendChild(link.cloneNode(true));
     }
 
     #getOptionsElements() {
         const options = Array.from(this.selectAll("input"));
-        const currentLanguage = document.documentElement.lang;
 
         const setProperties = (element) => {
             const byValue = (option) => (option.value == element.value);
             const { value, icon } = this.#options.find(byValue);
 
             element.icon = icon;
-            element.checked = (value === currentLanguage);
+            element.checked = (value === storage.getLocale());
         };
 
         options.forEach(setProperties);
@@ -117,24 +120,20 @@ export class LanguageSelect extends BaseComponent {
 
     connectedCallback() {
         super.connectedCallback();
-
-        this.includeIcons();
         this.#includeFlagIcons();
 
         this.#renderOptions();
         this.#renderSelectedOption();
 
         const selectLanguage = (event) => {
-            const option = event.target;
-            const previousOption = this.#getSelectedOptionElement();
+            const language = event.target.value;
 
-            if (option === previousOption) {
-                this.element.open = false;
-                return;
-            }
+            document.documentElement.lang = language;
+            storage.setLocale(language);
+            changeLocale();
 
-            document.documentElement.lang = option.value;
-            window.dispatchEvent(new Event("languagechange"));
+            this.#renderSelectedOption();
+            this.element.open = false;
         };
 
         this.#getOptionsElements().forEach(option => {

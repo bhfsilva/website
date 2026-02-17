@@ -1,4 +1,5 @@
-import { BaseComponent } from "../../shared/base-component.mjs";
+import BaseComponent from "../base-component/index.mjs";
+import storage from "../../services/storage/index.mjs";
 
 export class ThemeSwitcher extends BaseComponent {
     constructor() {
@@ -12,7 +13,6 @@ export class ThemeSwitcher extends BaseComponent {
             font-size: calc(var(--font-size) + 10px);
             color: var(--text-color);
             border-radius: 90px;
-            background: none;
             padding: 3px 5px;
         }
     `);
@@ -24,21 +24,21 @@ export class ThemeSwitcher extends BaseComponent {
     `);
 
     #isDark() {
-        return (document.body.dataset.theme === "dark");
+        return (storage.getTheme() === "dark");
     }
 
     #renderIcon() {
-        this.select("i").className = (this.#isDark()) ? "bi bi-sun" : "bi bi-moon"
+        this.select("i").className = (this.#isDark()) ? "bi bi-sun" : "bi bi-moon";
     }
 
     connectedCallback() {
         super.connectedCallback();
-
-        this.includeIcons();
         this.#renderIcon();
 
         const switchTheme = () => {
-            document.body.dataset.theme = this.#isDark() ? "light" : "dark";
+            const theme = this.#isDark() ? "light" : "dark";
+            document.body.dataset.theme = theme;
+            storage.setTheme(theme);
             this.#renderIcon();
         }
 

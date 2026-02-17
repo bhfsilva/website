@@ -1,5 +1,8 @@
-import { getLocation, goToNotFound } from "../services/router.mjs";
-import notesContentSource from "../data/notes-source.mjs";
+import { focusById, getLocation } from "../src/utils/document.mjs";
+import sources from "./data/sources.mjs";
+
+let cache = {};
+const internalPaths = Object.keys(sources);
 
 const HTMLParser = new DOMParser();
 const markdownParser = new marked.Marked()
@@ -8,44 +11,37 @@ const markdownParser = new marked.Marked()
     .use(markedKatex({ nonStandard: true }))
     .use(markedDirective.createDirectives());
 
-const contentRoot = "https://raw.githubusercontent.com/bhfsilva/anotacoes/refs/heads/main";
-const internalPaths = Object.keys(notesContentSource);
-
-let cache = {};
-
 function getPathBySource(source) {
-    return internalPaths.find((path) => (notesContentSource[path] === source));
+    return internalPaths.find((path) => (sources[path] === source));
 }
 
-function focusById(id) {
-    const scrollTop = () => window.scrollTo({ top: 0 });
+function render(content) {
+    const internal = getLocation().internal;
+    document.body.innerHTML = content;
+    focusById(internal.hash);
+    document.title = "bhfsilva/notes" + internal.hashpath;
+}
 
-    id = decodeURI(id?.replace("#", ""));
-    if (!id) {
-        scrollTop();
+function renderNotFound() {
+    render(`<not-found-snippet></not-found-snippet>`);
+}
+
+function renderMarkdownPage() {
+    const url = getLocation();
+    const currentPath = url.internal.hashpath;
+
+    if (!currentPath || currentPath === "/")
+        location.assign("#/books/sicp");
+
+    const source = sources[currentPath];
+    if (!source) {
+        renderNotFound();
         return;
     }
 
-    const element = document.getElementById(id);
-    if (!element) {
-        scrollTop();
-        return;
-    }
-
-    element.scrollIntoView({ block: "start" });
-    element.focus({ preventScroll: true });
-}
-
-function renderMarkdownPage(url) {
-    const currentPath = url.internal.path;
-    const source = notesContentSource[currentPath];
-
-    if (!source)
-        goToNotFound();
-
-    const cachePageContent = cache[currentPath];
-    if (cachePageContent) {
-        document.body.innerHTML = cachePageContent;
+    const cacheContent = cache[currentPath];
+    if (cacheContent) {
+        render(cacheContent);
         return;
     }
 
@@ -114,7 +110,7 @@ function renderMarkdownPage(url) {
                 if (path)
                     return `${origin}#${path}`;
 
-                return `${origin}#${url.internal.path}`;
+                return `${origin}#${url.internal.hashpath}`;
             }
 
             const getHeadingAnchor = (link) => {
@@ -145,22 +141,24 @@ function renderMarkdownPage(url) {
         const nextPath = (currentIndex + 1) === (internalPaths.length - 1)
             ? undefined : internalPaths.at(currentIndex + 1);
 
-        const toLink = (path, icon) => {
+        const createLink = (path, icon) => {
             if (!path)
                 return "<span></span>";
 
             return `
-                <a href="#${path}">
-                    <i class="bi bi-${icon} link-icon"></i>
+                <a href="#${path}" class="link-icon">
+                    <i class="bi bi-${icon}"></i>
                 </a>
             `;
         }
 
         return `
-            <nav class="note-navbar">
-                ${toLink(previousPath, "arrow-left")}
-                <a href="#/"><i class="bi bi-house-door link-icon"></i></a>
-                ${toLink(nextPath, "arrow-right")}
+            <nav id="note-navbar">
+                ${createLink(previousPath, "arrow-left")}
+                <a href="#/books/sicp" class="link-icon">
+                    <i class="bi bi-list"></i>
+                </a>
+                ${createLink(nextPath, "arrow-right")}
             </nav>
         `;
     }
@@ -172,35 +170,31 @@ function renderMarkdownPage(url) {
         return response.text();
     }
 
-    const render = (data) => {
+    const build = (data) => {
         const markdown = format(data);
         const html = toHTML(markdown);
 
-        const pageContent = `
-            <theme-switcher></theme-switcher>
+        const content = `
+            <div class="flex-between">
+                <a href=".." class="link-icon"><i class="bi bi-house-door"></i></a>
+                <theme-switcher></theme-switcher>
+            </div>
             ${renderNavBar()}
             ${html.body.innerHTML}
             ${renderNavBar()}
         `;
 
-        document.body.innerHTML = pageContent;
-        focusById(url.internal.hash);
-
         cache = {};
-        cache[currentPath] = pageContent;
+        cache[currentPath] = content;
+
+        render(content);
     }
 
-    const contentURL = `${contentRoot}/${source}`;
-    fetch(contentURL)
+    fetch(`https://raw.githubusercontent.com/bhfsilva/anotacoes/refs/heads/main/${source}`)
         .then(check)
-        .then(render)
-        .catch(() => goToNotFound());
+        .then(build)
+        .catch(() => renderNotFound());
 }
 
-export default {
-    render() {
-        const url = getLocation();
-        renderMarkdownPage(url);
-        focusById(url.internal.hash);
-    }
-}
+window.addEventListener("hashchange", renderMarkdownPage);
+renderMarkdownPage();

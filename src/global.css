@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css");
+
 :root {
     --code-background-color: rgb(85, 85, 85, 0.25);
     --heading-border-color: #8A5CF5;
@@ -25,35 +27,10 @@
     border: 0;
 }
 
-@keyframes wave {
-    50% { transform:rotate(30deg); }
-}
-
-#control-buttons-container {
-    margin-bottom: 20px;
-    align-items: center;
-    display: flex;
-    gap: 30px;
-}
-
-#greetings-container {
-    flex-wrap: wrap-reverse;
-    align-items: center;
-    display: flex;
-    gap: 15px;
-}
-
-#greetings-container img {
-    height: calc(var(--font-size) * 2.3);
-    animation: wave 1.3s infinite;
-}
-
-#greetings-container h1 {
-    line-height: calc(var(--font-size) * 2.5);
-}
-
-#links-container span {
-    white-space: nowrap;
+.link-icon {
+    border-bottom: var(--link-color) 1px solid;
+    font-size: calc(var(--font-size) + 5px);
+    color: var(--link-color);
 }
 
 .fork-icon {
@@ -62,24 +39,9 @@
     color: #828282;
 }
 
-/* hide multiline line number */
-.katex .tag {
-    display: none;
-}
-
-.note-navbar {
-    margin: 20px 0px;
+.flex-between {
     justify-content: space-between;
     display: flex;
-}
-
-.link-icon {
-    border-bottom: var(--link-color) 1px solid;
-    font-size: calc(var(--font-size) + 5px);
-}
-
-.footnotes ol {
-    font-size: calc(var(--font-size) - 3px);
 }
 
 body {
@@ -125,6 +87,10 @@ a {
     color: var(--link-color);
 }
 
+button {
+    background: none;
+}
+
 button:hover {
     cursor: pointer;
 }
@@ -135,10 +101,10 @@ blockquote {
 }
 
 blockquote[data-type] {
-    --color: 100, 100, 100;
-    padding: 10px 20px 20px 20px;
-    border-color: rgba(var(--color), 0.25);
     background-color: rgba(var(--color), 0.1);
+    border-color: rgba(var(--color), 0.25);
+    padding: 10px 20px 20px 20px;
+    --color: 100, 100, 100;
 }
 
 blockquote[data-type=info] {
