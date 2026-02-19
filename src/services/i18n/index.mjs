@@ -13,7 +13,7 @@ function getPageLocale() {
         return properties[language];
     };
 
-    const properties = `../../../${getLocation().internal.pagename}/data/i18n-properties.mjs`;
+    const properties = `../../../pages/${getLocation().internal.pagename}/data/i18n-properties.mjs`;
 
     const check = () => {
         return fetch(properties, { method: "HEAD" })

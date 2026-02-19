@@ -45,12 +45,12 @@ function renderRepos() {
 
 function renderNotes() {
     const notes = [{
-        path: "notes/#/books/sicp",
+        path: "pages/notes/#/books/sicp",
         name: "SICP - Structure and Interpretation of Computer Programs 2nd Edition"
     }];
 
     const sections = [
-        { localeKey: "books-title", prefix: "notes/#/books" }
+        { localeKey: "books-title", prefix: "pages/notes/#/books" }
     ];
 
     const toElement = (section) => {

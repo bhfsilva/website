@@ -1,4 +1,4 @@
-import { focusById, getLocation } from "../src/utils/document.mjs";
+import { focusById, getLocation } from "../../src/utils/document.mjs";
 import sources from "./data/sources.mjs";
 
 let cache = {};
@@ -176,7 +176,7 @@ function renderMarkdownPage() {
 
         const content = `
             <div class="flex-between">
-                <a href=".." class="link-icon"><i class="bi bi-house-door"></i></a>
+                <a href="../.." class="link-icon"><i class="bi bi-house-door"></i></a>
                 <theme-switcher></theme-switcher>
             </div>
             ${renderNavBar()}
