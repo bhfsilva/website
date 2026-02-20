@@ -1,6 +1,5 @@
 import changeLocale from "../../services/i18n/index.mjs";
 import BaseComponent from "../base-component/index.mjs";
-import { createLinkElement } from "../../utils/document.mjs";
 import storage from "../../services/storage/index.mjs";
 
 export class LanguageSelect extends BaseComponent {
@@ -70,13 +69,6 @@ export class LanguageSelect extends BaseComponent {
         { value: "en-US", icon: "fi fi-us" }
     ];
 
-    #includeFlagIcons() {
-        const properties = { href: "https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css" };
-        const link = createLinkElement(properties)
-        if (link)
-            this._shadow.appendChild(link.cloneNode(true));
-    }
-
     #getOptionsElements() {
         const options = Array.from(this.selectAll("input"));
 
@@ -120,7 +112,6 @@ export class LanguageSelect extends BaseComponent {
 
     connectedCallback() {
         super.connectedCallback();
-        this.#includeFlagIcons();
 
         this.#renderOptions();
         this.#renderSelectedOption();
