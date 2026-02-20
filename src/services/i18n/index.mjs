@@ -2,34 +2,46 @@ import { getLocation } from "../../utils/document.mjs";
 import storage from "../storage/index.mjs";
 
 function getPageLocale() {
-    const getLocale = (module) => {
-        const properties = module.default;
+    const getLocale = (properties) => {
+        const [ pageProperties, globalProperties ] = properties;
+
+        const mergeProperties = (map, key) => {
+            map[key] = { ...globalProperties[key], ...pageProperties[key] };
+            return map;
+        };
+
+        const localeProperties = (
+            Object
+                .keys({ ...pageProperties, ...globalProperties })
+                .reduce(mergeProperties, {})
+        );
+
         let language = storage.getLocale();
 
-        const exists = properties.hasOwnProperty(language);
+        const exists = localeProperties.hasOwnProperty(language);
         if (!exists)
             language = "pt-BR";
 
-        return properties[language];
+        return localeProperties[language];
     };
 
-    const properties = `../../../pages/${getLocation().internal.pagename}/data/i18n-properties.mjs`;
+    const pageProperties = `../../../pages/${getLocation().internal.pagename}/data/i18n-properties.json`;
+    const globalProperties = "../../src/shared/global-i18n-properties.json";
 
-    const check = () => {
-        return fetch(properties, { method: "HEAD" })
-    };
+    const parse = (response) => (response.ok ? response.json() : {});
+    const fetchProperty = (url) => (fetch(url).then(parse).catch(() => ({})));
 
-    const get = (response) => {
-        if (!response.ok)
-            return undefined;
+    const fetchProperties = () => (
+        Promise.all([
+            fetchProperty(pageProperties),
+            fetchProperty(globalProperties)
+        ])
+    );
 
-        return import(properties).then(getLocale);
-    };
-    
-    return check().then(get);
+    return fetchProperties().then(getLocale);
 }
 
-export default function changeLocale() {
+export default function loadLocale() {
     const translate = (locale) => {
         if (!locale)
             return;
