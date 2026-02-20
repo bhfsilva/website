@@ -33,9 +33,9 @@ export class LanguageSelect extends BaseComponent {
         }
 
         fieldset {
-            background-color: rgba(30, 30, 30, 0.9);
+            box-shadow: 0px 10px 35px -10px var(--text-color);
+            background-color: var(--body-bg-color);
             flex-direction: column;
-            border: 2px solid gray;
             border-radius: 3px;
             position: absolute;
             display: flex;
