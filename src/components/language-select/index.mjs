@@ -1,6 +1,6 @@
-import BaseComponent from "../base-component/index.mjs";
 import loadLocale from "../../services/i18n/index.mjs";
 import storage from "../../services/storage/index.mjs";
+import BaseComponent from "../base-component.mjs";
 
 export class LanguageSelect extends BaseComponent {
     constructor() {

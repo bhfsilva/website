@@ -1,4 +1,4 @@
-import BaseComponent from "../base-component/index.mjs";
+import BaseComponent from "../base-component.mjs";
 
 export class NotFoundSnippet extends BaseComponent {
     constructor() {

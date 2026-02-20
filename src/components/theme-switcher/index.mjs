@@ -1,5 +1,5 @@
-import BaseComponent from "../base-component/index.mjs";
 import storage from "../../services/storage/index.mjs";
+import BaseComponent from "../base-component.mjs";
 
 export class ThemeSwitcher extends BaseComponent {
     constructor() {
