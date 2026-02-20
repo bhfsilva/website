@@ -21,10 +21,6 @@
     animation: wave 1.3s infinite;
 }
 
-#greetings-container h1 {
-    line-height: calc(var(--font-size) * 2.5);
-}
-
 #links-container span {
     white-space: nowrap;
 }

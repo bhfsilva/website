@@ -35,6 +35,7 @@ export function getLocation() {
     const notEmpty = Boolean;
     const pagename = url.pathname.split("/").filter(notEmpty).pop();
 
+    //TODO add regex
     const [ origin, hashpath, hash ] = href.split("#");
 
     url.internal = {

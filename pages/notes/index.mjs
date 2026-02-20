@@ -1,4 +1,6 @@
 import { focusById, getLocation } from "../../src/utils/document.mjs";
+import loadLocale from "../../src/services/i18n/index.mjs";
+import { notesSections } from "../../src/shared/data.mjs";
 import sources from "./data/sources.mjs";
 
 let cache = {};
@@ -17,21 +19,69 @@ function getPathBySource(source) {
 
 function render(content) {
     const internal = getLocation().internal;
+    const hashpath = internal.hashpath;
+
+    document.title = "bhfsilva/notes";
     document.body.innerHTML = content;
+
+    if (hashpath)
+        document.title += hashpath;
+
     focusById(internal.hash);
-    document.title = "bhfsilva/notes" + internal.hashpath;
+    loadLocale();
 }
 
 function renderNotFound() {
     render(`<not-found-snippet></not-found-snippet>`);
 }
 
-function renderMarkdownPage() {
+function renderNotesList() {
+    const toElement = (section) => {
+        const toLink = (note) => (`
+            <div class="note-display">
+                <img src="${note.image}"/>
+                <div>
+                    <b>${note.slug}</b>
+                    <p>${note.name}</p>
+                    <a href="${note.hashpath}" class="link-icon">
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>        
+            </div>
+        `);
+
+        const links = section.links.map(toLink).join("");
+        return `
+            <h2 data-locale="${section.localeKey}"></h2>
+            <div>
+                ${links}
+            </div>
+        `;
+    };
+
+    //TODO create 'inner-control-buttons' component
+    const sections = notesSections.map(toElement).join("");
+    render(`
+        <section>
+            <div class="flex-between">
+                <a href="../.." class="link-icon"><i class="bi bi-house-door"></i></a>
+                <language-select></language-select>
+                <theme-switcher></theme-switcher>
+            </div>
+            <h1 data-locale="notes-title"></h1>
+            ${sections}
+        </section>
+    `);
+}
+
+function renderPage() {
     const url = getLocation();
     const currentPath = url.internal.hashpath;
 
-    if (!currentPath || currentPath === "/")
-        location.assign("#/books/sicp");
+    if (!currentPath || currentPath === "/") {
+        renderNotesList()
+        return;
+    }
 
     const source = sources[currentPath];
     if (!source) {
@@ -177,6 +227,7 @@ function renderMarkdownPage() {
         const content = `
             <div class="flex-between">
                 <a href="../.." class="link-icon"><i class="bi bi-house-door"></i></a>
+                <language-select></language-select>
                 <theme-switcher></theme-switcher>
             </div>
             ${renderNavBar()}
@@ -196,5 +247,5 @@ function renderMarkdownPage() {
         .catch(() => renderNotFound());
 }
 
-window.addEventListener("hashchange", renderMarkdownPage);
-renderMarkdownPage();
+window.addEventListener("hashchange", renderPage);
+renderPage();

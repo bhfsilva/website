@@ -1,3 +1,10 @@
+@media (max-width: 540px) {
+    .note-display {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
 /* hide multiline line number */
 .katex .tag {
     display: none;
@@ -11,4 +18,19 @@
 
 .footnotes ol {
     font-size: calc(var(--font-size) - 3px);
+}
+
+.note-display {
+    align-items: center;
+    display: flex;
+    gap: 20px;
+}
+
+.note-display b {
+    margin-bottom: 0px;
+    display: block;
+}
+
+.note-display img {
+    width: 130px;
 }

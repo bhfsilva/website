@@ -1,5 +1,5 @@
-import changeLocale from "../../services/i18n/index.mjs";
 import BaseComponent from "../base-component/index.mjs";
+import loadLocale from "../../services/i18n/index.mjs";
 import storage from "../../services/storage/index.mjs";
 
 export class LanguageSelect extends BaseComponent {
@@ -121,8 +121,8 @@ export class LanguageSelect extends BaseComponent {
 
             document.documentElement.lang = language;
             storage.setLocale(language);
-            changeLocale();
 
+            loadLocale();
             this.#renderSelectedOption();
             this.element.open = false;
         };

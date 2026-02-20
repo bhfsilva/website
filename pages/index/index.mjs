@@ -1,3 +1,6 @@
+import loadLocale from "../../src/services/i18n/index.mjs";
+import { notesSections } from "../../src/shared/data.mjs";
+
 function renderRepos() {
     const container = document.getElementById("repos-container");
 
@@ -26,8 +29,13 @@ function renderRepos() {
             <ul>
                 ${elements}
             </ul>
-            <a target="_blank" href="https://github.com/bhfsilva?tab=repositories" data-locale="see-more"></a>
+            <a
+                target="_blank"
+                href="https://github.com/bhfsilva?tab=repositories"
+                data-locale="see-more">
+            </a>
         `;
+        loadLocale();
     }
 
     const check = (response) => {
@@ -44,23 +52,20 @@ function renderRepos() {
 }
 
 function renderNotes() {
-    const notes = [{
-        path: "pages/notes/#/books/sicp",
-        name: "SICP - Structure and Interpretation of Computer Programs 2nd Edition"
-    }];
-
-    const sections = [
-        { localeKey: "books-title", prefix: "pages/notes/#/books" }
-    ];
-
     const toElement = (section) => {
-        const byPrefix = (note) => (note.path.startsWith(section.prefix))
+        const toLink = (note) => {
+            const slug = (note.slug ? `${note.slug} -` : "");
+            return`
+                <li>
+                    <a href="pages/notes/${note.hashpath}">
+                        ${slug} ${note.name}
+                    </a>
+                </li>
+            `;
+        };
 
-        const toLink = (note) => (`
-            <li><a href="${note.path}">${note.name}</a></li>
-        `);
+        const links = section.links.map(toLink).join("");
 
-        const links = notes.filter(byPrefix).map(toLink).join("");
         return `
             <ul>
                 <li>
@@ -71,15 +76,18 @@ function renderNotes() {
         `;
     };
 
-    const elements = sections.map(toElement).join("");
+    const sections = notesSections.map(toElement).join("");
 
     document.getElementById("notes-container").innerHTML = `
-        <h2 data-locale="notes-title">
-            <sup>
-                <span data-locale="notes-lang-hint"></span><i class="fi fi-br"></i>
-            </sup>
-        </h2>
-        ${elements}
+        <section>
+            <h2>
+                <a data-locale="notes-title" href="pages/notes/"></a>
+                <sup>
+                    <span data-locale="notes-lang-hint"></span><i class="fi fi-br"></i>
+                </sup>
+            </h2>
+            ${sections}
+        </section>
     `;
 }
 
