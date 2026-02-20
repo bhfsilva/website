@@ -33,15 +33,20 @@ export function getLocation() {
     const url = new URL(href);
 
     const notEmpty = Boolean;
-    const pagename = url.pathname.split("/").filter(notEmpty).pop();
+    let pagename = url.pathname.split("/").filter(notEmpty).pop();
+
+    const isRoot = (url.pathname === `/${pagename}/` ||  url.pathname === "/");
+    if (isRoot)
+        pagename = "index";
 
     //TODO add regex
     const [ origin, hashpath, hash ] = href.split("#");
 
     url.internal = {
-        pagename: (pagename ?? "index"),
         hash: (hash ? decodeURI(hash) : ""),
+        pagename: pagename,
         hashpath: hashpath,
+        isRoot: isRoot,
         origin: origin
     }
 
