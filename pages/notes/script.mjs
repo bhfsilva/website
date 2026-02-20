@@ -59,15 +59,10 @@ function renderNotesList() {
         `;
     };
 
-    //TODO create 'inner-control-buttons' component
     const sections = notesSections.map(toElement).join("");
     render(`
         <section>
-            <div class="flex-between">
-                <a href="../.." class="link-icon"><i class="bi bi-house-door"></i></a>
-                <language-select></language-select>
-                <theme-switcher></theme-switcher>
-            </div>
+            <inner-control-buttons></inner-control-buttons>
             <h1 data-locale="notes-title"></h1>
             ${sections}
         </section>
@@ -225,11 +220,7 @@ function renderPage() {
         const html = toHTML(markdown);
 
         const content = `
-            <div class="flex-between">
-                <a href="../.." class="link-icon"><i class="bi bi-house-door"></i></a>
-                <language-select></language-select>
-                <theme-switcher></theme-switcher>
-            </div>
+            <inner-control-buttons></inner-control-buttons>
             ${renderNavBar()}
             ${html.body.innerHTML}
             ${renderNavBar()}
