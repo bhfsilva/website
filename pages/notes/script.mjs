@@ -39,7 +39,7 @@ function renderNotesList() {
     const toElement = (section) => {
         const toLink = (note) => (`
             <div class="note-display">
-                <img src="${note.image}"/>
+                <img src="../../${note.image}"/>
                 <div>
                     <b>${note.slug}</b>
                     <p>${note.name}</p>

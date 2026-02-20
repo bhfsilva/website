@@ -5,7 +5,7 @@ export const notesSections = [
             {
                 slug: "SICP",
                 hashpath: "#/books/sicp",
-                image: "/public/images/books/sicp.jpg",
+                image: "public/images/books/sicp.jpg",
                 name: "Structure and Interpretation of Computer Programs 2nd Edition"
             }
         ]
