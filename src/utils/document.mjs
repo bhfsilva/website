@@ -52,3 +52,16 @@ export function getLocation() {
 
     return url;
 }
+
+export function getResourcesAbsolutePath() {
+    const getHref = (path) => new URL(path, import.meta.url).href;
+    const pagename = getLocation().internal.pagename;
+
+    return {
+        pageLocaleProperties: getHref(`../../pages/${pagename}/data/i18n-properties.json`),
+        global: {
+            localeProperties: getHref("../shared/global-i18n-properties.json"),
+            styles: getHref("../global.css")
+        }
+    };
+}

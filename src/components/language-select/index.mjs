@@ -1,3 +1,4 @@
+import { createLinkElement } from "../../utils/document.mjs";
 import loadLocale from "../../services/i18n/index.mjs";
 import storage from "../../services/storage/index.mjs";
 import BaseComponent from "../base-component.mjs";
@@ -69,6 +70,13 @@ export class LanguageSelect extends BaseComponent {
         { value: "en-US", icon: "fi fi-us" }
     ];
 
+    #includeFlagIcons() {
+        const properties = { href: "https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css" };
+        const link = createLinkElement(properties)
+        if (link)
+            this._shadow.appendChild(link.cloneNode(true));
+    }
+
     #getOptionsElements() {
         const options = Array.from(this.selectAll("input"));
 
@@ -112,6 +120,7 @@ export class LanguageSelect extends BaseComponent {
 
     connectedCallback() {
         super.connectedCallback();
+        this.#includeFlagIcons();
 
         this.#renderOptions();
         this.#renderSelectedOption();
@@ -132,8 +141,8 @@ export class LanguageSelect extends BaseComponent {
         });
 
         const close = (event) => {
-            const isOutside = (event.target.localName !== LanguageSelect.ID);
-            if (isOutside)
+            const isChild = this.select(event.originalTarget.localName);
+            if (!isChild)
                 this.element.open = false;
         };
         document.addEventListener("pointerdown", close);

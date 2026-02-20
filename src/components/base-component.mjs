@@ -1,4 +1,4 @@
-import { createLinkElement } from "../utils/document.mjs";
+import { createLinkElement, getResourcesAbsolutePath } from "../utils/document.mjs";
 
 export default class BaseComponent extends HTMLElement {
     constructor() {
@@ -12,7 +12,7 @@ export default class BaseComponent extends HTMLElement {
     element = undefined;
 
     #loadDefaultStyles() {
-        const properties = { href: "../../src/global.css" };
+        const properties = { href: getResourcesAbsolutePath().global.styles };
         const link = createLinkElement(properties);
         if (link)
             this._shadow.appendChild(link);
