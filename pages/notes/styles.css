@@ -1,7 +1,11 @@
-@media (max-width: 540px) {
+@media (max-width: 820px) {
     .note-display {
         flex-direction: column;
         text-align: center;
+    }
+
+    .note-display a {
+        min-width: 90%;
     }
 }
 
@@ -11,8 +15,8 @@
 }
 
 #note-navbar {
-    margin: 20px 0px;
     justify-content: space-between;
+    margin: 20px 0px;
     display: flex;
 }
 
@@ -26,11 +30,17 @@
     gap: 20px;
 }
 
+.note-display a {
+    display: inline-block;
+    width: 80%;
+}
+
 .note-display b {
     margin-bottom: 0px;
     display: block;
 }
 
 .note-display img {
+    height: 185px;
     width: 130px;
 }

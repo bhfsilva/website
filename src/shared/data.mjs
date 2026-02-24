@@ -1,3 +1,7 @@
+import { getResourcesAbsolutePath } from "../utils/document.mjs";
+
+const imagesFolder = getResourcesAbsolutePath().global.imagesFolder;
+
 export const notesSections = [
     {
         localeKey: "books-title",
@@ -5,7 +9,7 @@ export const notesSections = [
             {
                 slug: "SICP",
                 hashpath: "#/books/sicp",
-                image: "public/images/books/sicp.jpg",
+                image: `${imagesFolder}/books/sicp.jpg`,
                 name: "Structure and Interpretation of Computer Programs 2nd Edition"
             }
         ]

@@ -39,14 +39,11 @@ function renderNotesList() {
     const toElement = (section) => {
         const toLink = (note) => (`
             <div class="note-display">
-                <img src="../../${note.image}"/>
+                <img src="${note.image}"/>
                 <div>
                     <b>${note.slug}</b>
-                    <p>${note.name}</p>
-                    <a href="${note.hashpath}" class="link-icon">
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
-                </div>        
+                    <a href="${note.hashpath}">${note.name}</a>
+                </div>
             </div>
         `);
 
