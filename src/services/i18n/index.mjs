@@ -2,53 +2,45 @@ import globalLocaleProperties from "../../shared/global-i18n-properties.mjs";
 import { getResourcesAbsolutePath } from "../../utils/document.mjs";
 import storage from "../storage/index.mjs";
 
-function getPageLocale() {
-    const getLocale = (properties) => {
-        const [ pageProperties ] = properties;
+let pageLocale;
 
-        const mergeProperties = (map, key) => {
-            map[key] = { ...globalLocaleProperties[key], ...pageProperties[key] };
-            return map;
+function getPageLocale() {
+    if (pageLocale)
+        return pageLocale;
+
+    const getLocale = (properties = {}) => {
+        const getProperties = () => {
+            const merge = (map, key) => {
+                map[key] = { ...globalLocaleProperties[key], ...properties[key] };
+                return map;
+            };
+
+            const allProperties = { ...globalLocaleProperties, ...properties };
+            return Object.keys(allProperties).reduce(merge, {})
         };
 
-        const localeProperties = (
-            Object
-                .keys({ ...pageProperties, ...globalLocaleProperties })
-                .reduce(mergeProperties, {})
-        );
-
-        let language = storage.getLocale();
-
-        const exists = localeProperties.hasOwnProperty(language);
-        if (!exists)
-            language = "pt-BR";
-
-        return localeProperties[language];
+        return getProperties();
     };
 
-    const pageProperties = getResourcesAbsolutePath().pageLocaleProperties;
+    const loadPageLocale = (module) => getLocale(module.default);
+    const localeProperties = getResourcesAbsolutePath().pageLocaleProperties;
 
-    const parse = (response) => (response.ok ? response.json() : {});
-    const fetchProperty = (url) => (fetch(url).then(parse).catch(() => ({})));
-
-    const fetchProperties = () => (
-        Promise.all([
-            fetchProperty(pageProperties)
-        ])
-    );
-
-    return fetchProperties().then(getLocale);
+    pageLocale = import(localeProperties).then(loadPageLocale).catch(getLocale);
+    return pageLocale;
 }
 
 export default function loadLocale() {
     const translate = (locale) => {
-        if (!locale)
-            return;
+        let language = storage.getLocale();
+
+        const exists = locale.hasOwnProperty(language);
+        if (!exists)
+            language = "pt-BR";
 
         const replaceText = (element) => {            
             const textNode = (child) => (child.nodeType === Node.TEXT_NODE);
 
-            const value = locale[element.dataset.locale];
+            const value = locale[language][element.dataset.locale];
             const node = Array.from(element.childNodes).find(textNode);
             if (node) {
                 node.nodeValue = value;

@@ -1,4 +1,4 @@
-{
+export default {
     "pt-BR": {
         "greetings": "Me chamo Bruno Henrique!",
         "role": "Desenvolvedor Back-end.",

@@ -1,6 +1,6 @@
 import { getResourcesAbsolutePath } from "../utils/document.mjs";
 
-const imagesFolder = getResourcesAbsolutePath().global.imagesFolder;
+const { imagesFolder } = getResourcesAbsolutePath().global;
 
 export const notesSections = [
     {
