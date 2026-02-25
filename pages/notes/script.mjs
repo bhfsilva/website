@@ -42,7 +42,9 @@ function renderNotesList() {
                 <img src="${note.image}"/>
                 <div>
                     <b>${note.slug}</b>
-                    <a href="${note.hashpath}">${note.name}</a>
+                    <p>
+                        <a href="${note.hashpath}">${note.name}</a>
+                    </p>
                 </div>
             </div>
         `);
