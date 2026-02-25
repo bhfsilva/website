@@ -1,4 +1,4 @@
-{
+const globalLocaleProperties = {
     "pt-BR": {
         "books-title": "Livros",
         "notes-title": "Anotações"
@@ -8,3 +8,5 @@
         "notes-title": "Notes"
     }
 }
+
+export default globalLocaleProperties;

@@ -1,18 +1,19 @@
+import globalLocaleProperties from "../../shared/global-i18n-properties.mjs";
 import { getResourcesAbsolutePath } from "../../utils/document.mjs";
 import storage from "../storage/index.mjs";
 
 function getPageLocale() {
     const getLocale = (properties) => {
-        const [ pageProperties, globalProperties ] = properties;
+        const [ pageProperties ] = properties;
 
         const mergeProperties = (map, key) => {
-            map[key] = { ...globalProperties[key], ...pageProperties[key] };
+            map[key] = { ...globalLocaleProperties[key], ...pageProperties[key] };
             return map;
         };
 
         const localeProperties = (
             Object
-                .keys({ ...pageProperties, ...globalProperties })
+                .keys({ ...pageProperties, ...globalLocaleProperties })
                 .reduce(mergeProperties, {})
         );
 
@@ -26,15 +27,13 @@ function getPageLocale() {
     };
 
     const pageProperties = getResourcesAbsolutePath().pageLocaleProperties;
-    const globalProperties = getResourcesAbsolutePath().global.localeProperties;
 
     const parse = (response) => (response.ok ? response.json() : {});
     const fetchProperty = (url) => (fetch(url).then(parse).catch(() => ({})));
 
     const fetchProperties = () => (
         Promise.all([
-            fetchProperty(pageProperties),
-            fetchProperty(globalProperties)
+            fetchProperty(pageProperties)
         ])
     );
 
