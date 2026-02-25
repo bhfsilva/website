@@ -59,7 +59,7 @@ function renderNotesList() {
     const sections = notesSections.map(toElement).join("");
     render(`
         <section>
-            <inner-control-buttons></inner-control-buttons>
+            <pages-header-buttons></pages-header-buttons>
             <h1 data-locale="notes-title"></h1>
             ${sections}
         </section>
@@ -217,7 +217,7 @@ function renderPage() {
         const html = toHTML(markdown);
 
         const content = `
-            <inner-control-buttons></inner-control-buttons>
+            <pages-header-buttons></pages-header-buttons>
             ${renderNavBar()}
             ${html.body.innerHTML}
             ${renderNavBar()}

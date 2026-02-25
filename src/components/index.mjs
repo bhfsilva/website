@@ -1,11 +1,11 @@
-import { InnerControlButtons } from "./inner-control-buttons/index.mjs";
+import { PagesHeaderButtons } from "./pages-header-buttons/index.mjs";
 import { NotFoundSnippet } from "./not-found-snippet/index.mjs";
 import { LoadingSpinner } from "./loading-spinner/index.mjs";
 import { LanguageSelect } from "./language-select/index.mjs";
 import { ThemeSwitcher } from "./theme-switcher/index.mjs";
 
 const registry = {
-    [InnerControlButtons.ID]: InnerControlButtons,
+    [PagesHeaderButtons.ID]: PagesHeaderButtons,
     [NotFoundSnippet.ID]: NotFoundSnippet,
     [LanguageSelect.ID]: LanguageSelect,
     [LoadingSpinner.ID]: LoadingSpinner,

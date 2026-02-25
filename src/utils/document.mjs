@@ -58,6 +58,7 @@ export function getResourcesAbsolutePath() {
     const pagename = getLocation().internal.pagename;
 
     return {
+        indexPage: getHref("../../"),
         pageLocaleProperties: getHref(`../../pages/${pagename}/data/i18n-properties.json`),
         global: {
             localeProperties: getHref("../shared/global-i18n-properties.json"),
