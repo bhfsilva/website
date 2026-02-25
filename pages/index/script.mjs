@@ -15,7 +15,7 @@ function renderRepos() {
         const description = (repo.description ? `- ${repo.description}` : "");
         return `
             <li>
-                <a target="_blank" href="${repo.url}">${repo.name}</a>
+                <a href="${repo.url}">${repo.name}</a>
                 ${repo.isFork ? "<i class='bi bi-diagram-2 fork-icon'></i>" : ""}
                 ${description}
             </li>

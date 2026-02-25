@@ -4,6 +4,7 @@
 :root {
     --code-bg-color: rgb(85, 85, 85, 0.25);
     --heading-border-color: #8A5CF5;
+    --comment-color: #808080;
     --body-bg-color: #1E1E1E;
     --link-color: #A587EE;
     --text-color: #DADADA;
@@ -64,8 +65,16 @@ body[data-theme=dark] {
 
 body[data-theme=light] {
     --body-bg-color: #DADADA;
+    --comment-color: #313131;
     --text-color: #1E1E1E;
     --link-color: #64B;
+}
+
+a[target="_blank"]::after {
+    font-size: calc(var(--font-size) - 7px);
+    font-family: "bootstrap-icons";
+    color: var(--comment-color);
+    content: " \F1C5"; /* box-arrow-up-right icon */
 }
 
 ul {
