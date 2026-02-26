@@ -61,7 +61,7 @@ export function getResourcesAbsolutePath() {
         indexPage: getHref("../../"),
         pageLocaleProperties: getHref(`../../pages/${pagename}/data/i18n-properties.mjs`),
         global: {
-            imagesFolder: getHref("../../public/images"),
+            imagesFolder: getHref("../../assets/images"),
             styles: getHref("../global.css")
         }
     };
