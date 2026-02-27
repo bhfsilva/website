@@ -58,11 +58,15 @@ export function getResourcesAbsolutePath() {
     const pagename = getLocation().internal.pagename;
 
     return {
-        indexPage: getHref("../../"),
         pageLocaleProperties: getHref(`../../pages/${pagename}/data/i18n-properties.mjs`),
+        indexPage: getHref("../../"),
         global: {
             imagesFolder: getHref("../../assets/images"),
             styles: getHref("../global.css")
         }
     };
+}
+
+export function getTranslatableElements() {
+    return Array.from(document.querySelectorAll("[data-locale]"));
 }

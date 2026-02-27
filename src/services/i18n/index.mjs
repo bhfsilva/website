@@ -1,5 +1,5 @@
+import { getResourcesAbsolutePath, getTranslatableElements } from "../../utils/document.mjs";
 import globalLocaleProperties from "../../shared/global-i18n-properties.mjs";
-import { getResourcesAbsolutePath } from "../../utils/document.mjs";
 import storage from "../storage/index.mjs";
 
 let pageLocale;
@@ -38,19 +38,11 @@ export default function loadLocale() {
             language = "pt-BR";
 
         const replaceText = (element) => {            
-            const textNode = (child) => (child.nodeType === Node.TEXT_NODE);
-
             const value = locale[language][element.dataset.locale];
-            const node = Array.from(element.childNodes).find(textNode);
-            if (node) {
-                node.nodeValue = value;
-                return;
-            }
-
-            element.textContent = value;
+            element.replaceText(value);
         };
 
-        Array.from(document.querySelectorAll("[data-locale]")).forEach(replaceText);
+        getTranslatableElements().forEach(replaceText);
     };
 
     getPageLocale().then(translate);
