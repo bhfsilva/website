@@ -66,7 +66,3 @@ export function getResourcesAbsolutePath() {
         }
     };
 }
-
-export function getTranslatableElements() {
-    return Array.from(document.querySelectorAll("[data-locale]"));
-}

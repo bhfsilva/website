@@ -25,14 +25,16 @@ function renderRepos() {
     const render = (repos) => {
         const elements = repos.map(toDTO).map(toElement).join("");
         container.innerHTML = `
-            <h2 data-locale="repos-title"></h2>
+            <h2 data-locale="repos-title">...</h2>
             <ul>
                 ${elements}
             </ul>
             <a
                 target="_blank"
                 href="https://github.com/bhfsilva?tab=repositories"
-                data-locale="see-more">
+                data-locale="see-more"
+            >
+                ...
             </a>
         `;
         loadLocale();
@@ -69,7 +71,9 @@ function renderNotes() {
         return `
             <ul>
                 <li>
-                    <span class="section-label" data-locale="${section.localeKey}"></span>
+                    <span class="section-label" data-locale="${section.localeKey}">
+                        ...
+                    </span>
                     <ul>${links}</ul>
                 </li>
             </ul>
@@ -81,9 +85,9 @@ function renderNotes() {
     document.getElementById("notes-container").innerHTML = `
         <section>
             <h2>
-                <a data-locale="notes-title" href="pages/notes/"></a>
+                <a data-locale="notes-title" href="pages/notes/">...</a>
                 <sup>
-                    <span data-locale="notes-lang-hint"></span><i class="fi fi-br"></i>
+                    <span data-locale="notes-lang-hint">...</span><i class="fi fi-br"></i>
                 </sup>
             </h2>
             ${sections}

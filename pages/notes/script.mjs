@@ -51,7 +51,9 @@ function renderNotesList() {
 
         const links = section.links.map(toLink).join("");
         return `
-            <h2 data-locale="${section.localeKey}"></h2>
+            <h2 data-locale="${section.localeKey}">
+                ...
+            </h2>
             <div>
                 ${links}
             </div>
@@ -62,7 +64,7 @@ function renderNotesList() {
     render(`
         <section>
             <pages-header-buttons></pages-header-buttons>
-            <h1 data-locale="notes-title"></h1>
+            <h1 data-locale="notes-title">...</h1>
             ${sections}
         </section>
     `);
