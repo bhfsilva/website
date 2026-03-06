@@ -188,10 +188,10 @@ function renderPage() {
 
         const createLink = (path, icon) => {
             if (!path)
-                return "<span></span>";
+                path = "";
 
             return `
-                <a href="#${path}" class="link-icon">
+                <a href="#${path}" class="link-icon" ${!path ? "data-disabled" : ""}>
                     <i class="bi bi-${icon}"></i>
                 </a>
             `;

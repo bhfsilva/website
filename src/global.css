@@ -70,6 +70,11 @@ body[data-theme=light] {
     --link-color: #64B;
 }
 
+a[data-disabled] {
+    pointer-events: none;
+    opacity: 0.35;
+}
+
 a[target="_blank"]::after {
     font-size: calc(var(--font-size) - 7px);
     font-family: "bootstrap-icons";
