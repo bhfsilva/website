@@ -151,7 +151,7 @@ function renderPage() {
                 const origin = url.internal.origin;
                 const root = url.pathname;
 
-                const source = link.pathname.replace(root, "");
+                const source = `/${link.pathname.replace(root, "")}`;
                 const path = getPathBySource(source);
                 if (path)
                     return `${origin}#${path}`;
@@ -184,8 +184,7 @@ function renderPage() {
         const previousPath = (currentIndex === 0)
             ? undefined : internalPaths.at(currentIndex - 1);
 
-        const nextPath = (currentIndex + 1) === (internalPaths.length - 1)
-            ? undefined : internalPaths.at(currentIndex + 1);
+        const nextPath = internalPaths.at(currentIndex + 1);
 
         const createLink = (path, icon) => {
             if (!path)
