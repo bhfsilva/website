@@ -103,7 +103,7 @@ function renderPage() {
     }
 
     const toHTML = (markdown) => {
-        const resolveQuoteType = (blockquote) => {
+        const stylizeQuote = (blockquote) => {
             const firstChild = blockquote.firstElementChild;
             const text = firstChild.textContent;
 
@@ -172,7 +172,7 @@ function renderPage() {
         }
 
         const html = HTMLParser.parseFromString(markdownParser.parse(markdown), "text/html");
-        html.querySelectorAll("blockquote").forEach(resolveQuoteType);
+        html.querySelectorAll("blockquote").forEach(stylizeQuote);
         html.querySelectorAll("a").forEach(resolveLink);
 
         return html;

@@ -3,10 +3,10 @@
 }
 
 #control-buttons-container {
+    justify-content: space-between;
     margin-bottom: 20px;
     align-items: center;
     display: flex;
-    gap: 30px;
 }
 
 #greetings-container {
