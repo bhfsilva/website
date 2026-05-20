@@ -49,10 +49,10 @@
 
 body {
     background-color: var(--body-bg-color);
-    line-height: calc(var(--font-size) * 2.4);
     font-family: "Helvetica", sans-serif;
     font-size: var(--font-size);
     color: var(--text-color);
+    line-height: 210%;
     max-width: 1000px;
     padding: 35px;
     margin: auto;
