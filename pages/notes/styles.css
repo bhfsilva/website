@@ -15,7 +15,8 @@
 }
 
 .katex {
-  overflow-x: scroll;
+    overflow-x: scroll;
+    scrollbar-color: transparent transparent;
 }
 
 #note-navbar {
