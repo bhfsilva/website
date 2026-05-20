@@ -139,8 +139,9 @@ blockquote[data-type=cite] {
 }
 
 pre {
-    background-color: var(--code-bg-color);
     line-height: calc(var(--font-size) * 1.5);
+    scrollbar-color: transparent transparent;
+    background-color: var(--code-bg-color);
     white-space: pre;
     overflow: scroll;
     padding: 15px;
