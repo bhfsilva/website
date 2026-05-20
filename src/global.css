@@ -133,6 +133,11 @@ blockquote[data-type=example] {
     --color: 168, 130, 255;
 }
 
+blockquote[data-type=cite] {
+    --icon: 'quote';
+    --color: 146, 144, 150;
+}
+
 pre {
     background-color: var(--code-bg-color);
     line-height: calc(var(--font-size) * 1.5);

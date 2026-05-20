@@ -54,7 +54,7 @@ function renderNotesList() {
             <h2 data-locale="${section.localeKey}">
                 ...
             </h2>
-            <div>
+            <div id="notes-display-container">
                 ${links}
             </div>
         `;
@@ -160,7 +160,7 @@ function renderPage() {
             }
 
             const getHeadingAnchor = (link) => {
-                const invalidChars = /[.()^]/g;
+                const invalidChars = /[.()^`;]/g;
                 return decodeURI(link.hash)
                     .toLowerCase()
                     .replaceAll(" ", "-")
@@ -200,8 +200,8 @@ function renderPage() {
         return `
             <nav id="note-navbar">
                 ${createLink(previousPath, "arrow-left")}
-                <a href="#/books/sicp" class="link-icon">
-                    <i class="bi bi-list"></i>
+                <a href="#/" class="link-icon">
+                    <i class="bi bi-house"></i>
                 </a>
                 ${createLink(nextPath, "arrow-right")}
             </nav>
@@ -235,7 +235,10 @@ function renderPage() {
     fetch(`https://raw.githubusercontent.com/bhfsilva/anotacoes/refs/heads/main/${source}`)
         .then(check)
         .then(build)
-        .catch(() => renderNotFound());
+        .catch((err) => {
+            console.error(err)
+            renderNotFound()
+        });
 }
 
 window.addEventListener("hashchange", renderPage);

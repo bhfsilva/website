@@ -24,6 +24,12 @@
     font-size: calc(var(--font-size) - 3px);
 }
 
+#notes-display-container {
+    flex-direction: column;
+    display: flex;
+    gap: 40px;
+}
+
 .note-display {
     align-items: center;
     display: flex;

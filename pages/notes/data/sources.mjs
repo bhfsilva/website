@@ -28,6 +28,13 @@ export default build({
         "/sicp": "/sicp/_indice.md",
         "/sicp/chapter-1": "/sicp/capitulo-1/_indice.md",
         "/sicp/chapter-1/subchapter-1-1": "/sicp/capitulo-1/subcapitulo-1-1.md",
-        "/sicp/chapter-1/subchapter-1-2": "/sicp/capitulo-1/subcapitulo-1-2.md"
+        "/sicp/chapter-1/subchapter-1-2": "/sicp/capitulo-1/subcapitulo-1-2.md",
+        "/sicp/chapter-1/subchapter-1-3": "/sicp/capitulo-1/subcapitulo-1-3.md",
+
+        "/basic-maths": "/basic-maths/_indice.md",
+        "/basic-maths/chapter-1": "/basic-maths/capitulo-1.md",
+        "/basic-maths/chapter-2": "/basic-maths/capitulo-2.md",
+        "/basic-maths/chapter-3": "/basic-maths/capitulo-3.md",
+        "/basic-maths/chapter-4": "/basic-maths/capitulo-4.md"
     }
 });

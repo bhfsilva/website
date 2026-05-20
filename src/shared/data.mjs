@@ -11,6 +11,12 @@ export const notesSections = [
                 hashpath: "#/books/sicp",
                 image: `${imagesFolder}/books/sicp.jpg`,
                 name: "Structure and Interpretation of Computer Programs 2nd Edition"
+            },
+            {
+                slug: "basic-maths",
+                hashpath: "#/books/basic-maths",
+                image: `${imagesFolder}/books/basic-maths.jpg`,
+                name: "Basic Mathematics by Serge Lang"
             }
         ]
     }
